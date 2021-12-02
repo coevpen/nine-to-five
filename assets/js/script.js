@@ -1,3 +1,4 @@
+// gets today's date and displays on jumbotron
 var currentDay = moment().format('dddd, MMMM Do');
 $("#currentDay").text(currentDay);
 
