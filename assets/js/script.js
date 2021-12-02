@@ -1,10 +1,34 @@
 var currentDay = moment().format('dddd, MMMM Do');
 $("#currentDay").text(currentDay);
 
-// determines if the hour is present/past/future
+// determines if the hour is past/present/future
 function hourCheck(){
     // gets current hour
     var currentTime = moment().hour();
+
+    $(".time-block").each(function(){
+        // gets the current timeblock's hour
+        var timeBlockHr = parseInt($(this).attr("id"));
+   
+        // past
+        if(timeBlockHr < currentTime){
+            $(this).addClass("past");
+            $(this).removeClass("future");
+            $(this).removeClass("present");
+        }
+        // present
+        else if(timeBlockHr === currentTime){
+            $(this).addClass("present");
+            $(this).removeClass("past");
+            $(this).removeClass("future");
+        }
+        // future
+        else{
+            $(this).addClass("future");
+            $(this).removeClass("past");
+            $(this).removeClass("present");
+        }
+    });
 
 
 };
@@ -33,3 +57,8 @@ loadTasks();
 
 // checks the hour for past/present/future
 hourCheck();
+
+// make hourCheck() happen every minute
+setInterval(function() {
+    hourCheck();
+}, 60000);
